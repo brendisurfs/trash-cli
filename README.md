@@ -12,6 +12,9 @@ Installation is pretty easy.
 
 First, make sure that you have CMake installed. If you don't, install it for your operating system.
 
-Second, you're going to want to `git clone` this repository, `cd` into this repository, and execute the `make` command. That will build the project, and the binary will be output in the `build/bin` directory.
+Second, you're going to want to install the Just tool: https://just.systems/man/en/installation.html
 
-From there, you can add it to PATH. You can do whatever you want with it, really.
+Third, git clone this repository, cd into it, and enter the `just build` command.
+This will build out the binary to the `build/bin` directory.
+
+From there, you can add it to your path or just use it from there.
