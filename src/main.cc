@@ -26,13 +26,18 @@ public:
 };
 
 class TrashUtil {
+private:
+  void hashPath(filesystem::path item_path) {
+    cout << "Not yet implemented: hashPath" << endl;
+    throw;
+  }
 
 public:
   // Returns an item, given its filename, to the original directory it was
   // stored in, if it exists. if the directory does not exist anymore, or the
   // file does not exist, it returns None. Otherwise, it returns the full path
   // to the restored file.
-  std::optional<filesystem::path> restoreItem(string item_name) {
+  optional<filesystem::path> restoreItem(string item_name) {
     cout << "TODO: restore item" << endl;
     throw;
   }
@@ -60,6 +65,7 @@ int main(int argc, char *argv[]) {
   char *arg_call = argv[1];
   char *file_path = argv[2];
 
+  // this is just a lil test for now
   if (strcmp(arg_call, "trash") == 0) {
     filesystem::path cwd = filesystem::current_path();
     cwd.append(file_path);
