@@ -1,13 +1,13 @@
-add_executable(trash_cli_test test_trash_cli.cc)
+add_executable(test_trashutil test_trashutil.cc)
 
-set_target_properties(trash_cli_test PROPERTIES
+set_target_properties(test_trashutil PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
-target_link_libraries(trash_cli_test PRIVATE
+target_link_libraries(test_trashutil PRIVATE
   trashutil
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(trash_cli_test)
+gtest_discover_tests(test_trashutil)
