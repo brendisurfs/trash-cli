@@ -2,6 +2,7 @@
 #include "trashutil.hpp"
 
 #include <cstdlib>
+#include <expected>
 #include <iostream>
 
 using std::cout;
@@ -16,6 +17,7 @@ using std::endl;
 // 4. Need basic commands: put, restore, empty
 
 int main(int argc, char *argv[]) {
+  TrashUtil tp;
   CLI::App app("Trash Utility");
 
   bool dry_run{false};
@@ -45,6 +47,24 @@ int main(int argc, char *argv[]) {
 
   CLI11_PARSE(app, argc, argv);
 
-  cout << "Parsing " << delete_path << endl;
+  if (delete_cmd->parsed()) {
+    auto trash_result = tp.trash_item(delete_path);
+
+    if (trash_result.has_value()) {
+      string val = trash_result.value();
+      cout << "Parsing " << val << endl;
+
+    } else {
+      switch (trash_result.error()) {
+      case TrashError::InvalidPath:
+        cout << "Invalid path provided" << endl;
+        return EXIT_FAILURE;
+
+      default:
+        break;
+      }
+    }
+  }
+
   return EXIT_SUCCESS;
 };
