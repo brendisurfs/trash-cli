@@ -23,10 +23,7 @@ public:
 
 class TrashUtil {
 private:
-  void hashPath(path item_path) {
-    cout << "Not yet implemented: hashPath" << endl;
-    throw;
-  }
+  void hashPath(path item_path) { throw "not yet implemented"; }
 
 public:
   // Returns an item, given its filename, to the original directory it was
@@ -34,8 +31,7 @@ public:
   // file does not exist, it returns None. Otherwise, it returns the full path
   // to the restored file.
   optional<path> restoreItem(string item_name) {
-    cout << "TODO: restore item" << endl;
-    throw;
+    throw "Not yet implemented: restore item";
   }
 
   // Put an item in the trash directory, wherever that is stored.
