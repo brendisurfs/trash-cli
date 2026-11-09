@@ -1,10 +1,13 @@
+#include "CLI11.hpp"
+#include "trashutil.hpp"
+
 #include <cstdlib>
 #include <filesystem>
 #include <iostream>
-#include <optional>
-#include <string>
 
-using namespace std;
+using std::cout;
+using std::endl;
+using std::filesystem::current_path;
 
 // So a few main things:
 // 1. Need a directory that stores all our trashed data.
@@ -14,46 +17,11 @@ using namespace std;
 // If that directory no longer exists, restore to the current directory.
 // 4. Need basic commands: put, restore, empty
 
-class TrashItem {
-public:
-  string root_directory;
-  string hash;
-
-  TrashItem(string abs_file_path) {
-    // todo: we hash the absolute file path to store so that we know which item
-    // to restore.
-  }
-};
-
-class TrashUtil {
-private:
-  void hashPath(filesystem::path item_path) {
-    cout << "Not yet implemented: hashPath" << endl;
-    throw;
-  }
-
-public:
-  // Returns an item, given its filename, to the original directory it was
-  // stored in, if it exists. if the directory does not exist anymore, or the
-  // file does not exist, it returns None. Otherwise, it returns the full path
-  // to the restored file.
-  optional<filesystem::path> restoreItem(string item_name) {
-    cout << "TODO: restore item" << endl;
-    throw;
-  }
-
-  // Put an item in the trash directory, wherever that is stored.
-  void trashItem(filesystem::path item_name) {
-    string full_path_item = filesystem::absolute(item_name);
-
-    cout << "TODO: restore item" << full_path_item << endl;
-    throw;
-  }
-
-  ~TrashUtil() { cout << "Cleaning up is fun" << endl; }
-};
-
 int main(int argc, char *argv[]) {
+  CLI::App app;
+
+  CLI11_PARSE(app, argc, argv);
+
   // Get the file name from the input
   if (argc < 3) {
     cout << "Not enough arguments provided" << endl;
@@ -67,7 +35,7 @@ int main(int argc, char *argv[]) {
 
   // this is just a lil test for now
   if (strcmp(arg_call, "trash") == 0) {
-    filesystem::path cwd = filesystem::current_path();
+    path cwd = current_path();
     cwd.append(file_path);
     cout << "got trash call" << cwd << endl;
   }
