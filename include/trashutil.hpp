@@ -5,12 +5,9 @@
 #include <expected>
 #include <filesystem>
 #include <optional>
-#include <system_error>
-#include <type_traits>
 
 using std::cout;
 using std::endl;
-using std::optional;
 using std::string;
 using std::filesystem::path;
 
@@ -25,6 +22,9 @@ public:
   }
 };
 
+/**
+ * util wide errors
+ * */
 enum class TrashError {
   InvalidPath,
 };
@@ -45,13 +45,14 @@ public:
 
     string full_path_item = absolute(abs_item_path);
 
-    throw "TODO: restore item";
+    throw "TODO: trash item";
   }
+
   // Returns an item, given its filename, to the original directory it was
   // stored in, if it exists. if the directory does not exist anymore, or the
   // file does not exist, it returns None. Otherwise, it returns the full path
   // to the restored file.
-  optional<path> restore_item(string item_name) {
+  std::optional<path> restore_item(string item_name) {
     throw "Not yet implemented: restore item";
   }
 

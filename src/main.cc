@@ -1,9 +1,9 @@
-#include "CLI11.hpp"
-#include "trashutil.hpp"
-
 #include <cstdlib>
 #include <expected>
 #include <iostream>
+
+#include "CLI11.hpp"
+#include "trashutil.hpp"
 
 using std::cout;
 using std::endl;
@@ -18,14 +18,14 @@ using std::endl;
 
 int main(int argc, char *argv[]) {
   TrashUtil tp;
+
   CLI::App app("Trash Utility");
 
   bool dry_run{false};
+  std::string restore_path, delete_path;
+
   app.add_flag("-d", dry_run,
                "Run the command without actually running the operation");
-
-  // adding file target to delete
-  std::string delete_path;
 
   CLI::App *delete_cmd = app.add_subcommand(
       "delete", "Moves a file or directory to the trash (~/.Trash)");
@@ -33,11 +33,9 @@ int main(int argc, char *argv[]) {
   delete_cmd->add_option("path", delete_path, "File or directory to delete")
       ->required();
 
-  // restore
   CLI::App *restore_cmd =
       app.add_subcommand("restore", "Restores a trashed file or directory");
 
-  std::string restore_path;
   restore_cmd->add_option("path", restore_path,
                           "name of the file or directory to restore");
 
@@ -47,13 +45,13 @@ int main(int argc, char *argv[]) {
 
   CLI11_PARSE(app, argc, argv);
 
+  // Handlers
   if (delete_cmd->parsed()) {
     auto trash_result = tp.trash_item(delete_path);
 
     if (trash_result.has_value()) {
       string val = trash_result.value();
       cout << "Parsing " << val << endl;
-
     } else {
       switch (trash_result.error()) {
       case TrashError::InvalidPath:
